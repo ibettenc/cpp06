@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:36 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/28 18:27:37 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/09/29 16:45:40 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 #include <cstdlib>
 #include <cmath>
 #include <cerrno>
-#include <atof>
 
-int ft_strlen(std::string)
+int ft_strlen(std::string const& str)
 {
     int i = 0;
     
@@ -25,22 +24,36 @@ int ft_strlen(std::string)
     return (i); 
 }
 
-std::string detectType(std::string str)
+std::string detectType(std::string const& str)
 {
+    bool is_spe = false;
+    
     /* INVALID */
-    if (!str)
+    if (str.empty())
         return ("invalid");    
     
     /* CHAR */
-    if (ft_strlen(i) == 3 && str[0] == '\''  && str[2] == '\'' )
+    if (ft_strlen(str) == 3 && str[0] == '\''  && str[2] == '\'' )
         return ("char");
         
     /* SPECIAL */
-    if (str == "nan" || str == "inf")
-        return ("special");
+    if (str.find("nan") == 0 || str.find("inf") == 0)
+        is_spe = true;
+    else if (str.find("+nan") == 0 || str.find("-nan") == 0 ||
+        str.find("-inf") == 0 || str.find("+inf") == 0)
+            is_spe = true;
+    if (str.find("nanf") == 0 || str.find("inff") == 0)
+        is_spe = true;
+    if (str.find("+nanf") == 0 || str.find("-nanf") == 0 ||
+        str.find("+inff") == 0 || str.find("-inff") == 0)
+            is_spe = true;
+    if (str.find("NaN") == 0 ||  str.find("Inf") == 0)
+        is_spe = true;
+    if (is_spe == true)
+        return ("special");    
     
     /* FLOAT OR DOUBLE */
-    if (str[0] == '.' && str[ft_strlen(str)] == 'f')
+    if (str.find('.') != std::string::npos || str[ft_strlen(str) - 1] == 'f')
         return ("float_or_double");
     
     /* INT */
@@ -48,7 +61,7 @@ std::string detectType(std::string str)
         return ("int");
 }
 
-ScalarConverter::void convert(std::string const& str)
+ScalarConverter::static void convert(std::string const& str)
 {
     if (detectType(str) == "invalid")
         throw InvalidFormatException;

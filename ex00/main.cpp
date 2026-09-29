@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:51 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/28 18:30:21 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/09/29 13:47:50 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int main(int ac, char **av)
 /*
 
 chuis a letape B: Conversion et Validation
-- je dois (bien) convertir str en la bonne la bonne valeur en passant par double askip, a voir 
+- je dois (bien) convertir str en la bonne la bonne
+    valeur en passant par double askip, a voir 
 
 */
 
