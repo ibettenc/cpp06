@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:36 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/29 18:00:04 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/09/30 17:05:55 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,7 @@
 #include <limits>
 #include <cerrno>
 
-int ft_strlen(std::string const& str)
-{
-    int i = 0;
-    
-    while (str[i])
-        i++;
-    return (i); 
-}
-
-std::string detectType(std::string const& str)
+static std::string detectType(std::string const& str)
 {
     bool is_spe = false;
     
@@ -34,9 +25,8 @@ std::string detectType(std::string const& str)
         return ("invalid");    
     
     /* CHAR */
-    if (ft_strlen(str) == 3 && str[0] == '\''  && str[2] == '\'' )
+    if ((str.length()) == 3 && str[0] == '\'' && str[2] == '\'')
         return ("char");
-        
     /* SPECIAL */
     if (str.find("nan") == 0 || str.find("inf") == 0)
         is_spe = true;
@@ -54,7 +44,7 @@ std::string detectType(std::string const& str)
         return ("special");    
     
     /* FLOAT OR DOUBLE */
-    if (str.find('.') != std::string::npos || str[ft_strlen(str) - 1] == 'f')
+    if (str.find('.') != std::string::npos || str[str.length() - 1] == 'f')
         return ("float_or_double");
     
     /* INT */
@@ -62,13 +52,14 @@ std::string detectType(std::string const& str)
         return ("int");
 }
 
-static void ScalarConverter::convert(std::string const& str)
+void ScalarConverter::convert(std::string const& str)
 {
     double value = 0.0;
     char* endptr;
-    std::string type = detectType(str);
 
     /* DETECT AND VALIDATION */
+    std::string type = detectType(str);
+
     if (type == "invalid")
         throw InvalidFormatException();
     
@@ -76,9 +67,14 @@ static void ScalarConverter::convert(std::string const& str)
     if (type == "char")
         value = static_cast<double>(str[1]);
     else
+    {
+        errno = 0;
         value = std::strtod(str.c_str(), &endptr);
-    if (*endptr != '\0' && *endptr != 'f')
-        throw InvalidFormatException();
+        if (endptr == str.c_str()) // Case 1: no conversion
+            throw InvalidFormatException();
+        if (*endptr != '\0' && *endptr != 'f') // Case: 2 characters remaining after 
+            throw InvalidFormatException();
+    }
         
     /* SPECIAL */
     if (std::isnan(value))
@@ -105,7 +101,16 @@ static void ScalarConverter::convert(std::string const& str)
     else
     {
         char c = static_cast<char>(value);
+        
+        // // DEBUG
+        // std::cout << "\nvalue: " << value << "\n";
+        // std::cout << "type: " << type << "\n";
+        // std::cout << "c: " << c << "\n";
+        // std::cout << "str: " << str << "\n\n";
+        
         if (c >= 32 && c <= 126)
+            std::cout << "char: '" << c << "'\n";
+        else
             std::cout << "char: non displayable\n";
     }
     

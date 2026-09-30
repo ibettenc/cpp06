@@ -6,7 +6,7 @@
 #    By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/28 17:15:09 by ibettenc          #+#    #+#              #
-#    Updated: 2026/09/29 17:52:42 by ibettenc         ###   ########.fr        #
+#    Updated: 2026/09/30 14:20:29 by ibettenc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ CFLAGS = -Wall -Werror -Wextra -std=c++98
 ###################################################
 ## SOURCES
 
-SRC = main.cpp ScalarConverter.cpp ScalarConverter.hpp
+SRC = main.cpp ScalarConverter.cpp
 OBJ = $(SRC:.cpp=.o)
 
 ###################################################

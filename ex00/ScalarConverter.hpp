@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:56 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/28 17:58:51 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/09/30 14:34:33 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 
 class ScalarConverter
 {
-    private :
+    private : /// private constructor bc it cannot be instantiable
         ScalarConverter() {}
         ~ScalarConverter() {}
         ScalarConverter(const ScalarConverter&);
         ScalarConverter& operator=(const ScalarConverter&);    
     public :
     /* Member functions */
-        void convert(std::string const& str);
+        static void convert(std::string const& str);
     
     /* Exceptions */
         class OverflowException : public std::exception
