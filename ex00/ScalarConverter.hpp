@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:56 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/30 14:34:33 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/09/30 17:15:43 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ class ScalarConverter
         static void convert(std::string const& str);
     
     /* Exceptions */
-        class OverflowException : public std::exception
-        {
-            public :
-                virtual const char* what() const throw()
-                {
-                    return ("Global error : Overflow");
-                }
-        };
-
         class InvalidFormatException : public std::exception
         {
             public :

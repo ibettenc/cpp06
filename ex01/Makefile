@@ -6,14 +6,14 @@
 #    By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/28 17:15:09 by ibettenc          #+#    #+#              #
-#    Updated: 2026/09/30 17:09:27 by ibettenc         ###   ########.fr        #
+#    Updated: 2026/09/30 17:09:47 by ibettenc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ###################################################
 ## ARGUMENTS
 
-NAME = scalar_converter
+NAME = serialization
 
 CC = c++
 
