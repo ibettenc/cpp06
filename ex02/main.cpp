@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/30 17:10:27 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/02 14:53:16 by ibettenc         ###   ########.fr       */
+/*   Created: 2026/10/02 14:58:52 by ibettenc          #+#    #+#             */
+/*   Updated: 2026/10/02 14:59:33 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#include "Base.hpp"
 
-uintptr_t Serializer::serialize(Data *ptr)
+int main()
 {
-    return (reinterpret_cast<uintptr_t>(ptr));
-}
-
-Data *Serializer::deserialize(uintptr_t raw)
-{
-    return (reinterpret_cast<Data*>(raw));
+    std::cout << "hello World\n";
+    
+    return (0);
 }

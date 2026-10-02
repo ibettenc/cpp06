@@ -6,16 +6,24 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/30 17:10:37 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/30 17:26:48 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/10/02 15:06:03 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#pragma once
+
+#include <iostream>
+#include <stdint.h>
+#include <stdexcept>
+
+class Data;
 
 class Serializer
 {
     private:
         Serializer() {}
         ~Serializer() {}
-        Serializer(const Serializer&);
+        Serializer(const Serializer& other);
         Serializer& operator=(const Serializer&);
 
     public:
@@ -29,18 +37,8 @@ class Serializer
                 {
                     return ("Global error");
                 }
-        }
+        };
+        
     
 };
 
-class Data
-{
-    private:
-        int value;
-
-    public: 
-        Data();
-        ~Data();
-        Data(const Data&);
-        Data operator=(const Data&);
-};

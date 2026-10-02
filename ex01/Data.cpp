@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*   Data.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/30 17:10:27 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/02 14:53:16 by ibettenc         ###   ########.fr       */
+/*   Created: 2026/10/02 14:38:22 by ibettenc          #+#    #+#             */
+/*   Updated: 2026/10/02 14:39:17 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#include "Data.hpp"
 
-uintptr_t Serializer::serialize(Data *ptr)
+Data::Data() : value(0) {}
+Data::~Data() {}
+Data::Data(const Data& other) : value(other.value) {}
+Data& Data::operator=(const Data &other)
 {
-    return (reinterpret_cast<uintptr_t>(ptr));
+    if (this != &other)
+        value = other.value;
+    return *this;
 }
 
-Data *Serializer::deserialize(uintptr_t raw)
+uintptr_t Data::get_value()
 {
-    return (reinterpret_cast<Data*>(raw));
+    return (value);
+}
+
+void Data::set_value(uintptr_t v)
+{
+    value = v;
 }

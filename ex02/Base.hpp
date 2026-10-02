@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*   Base.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/30 17:10:27 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/02 14:53:16 by ibettenc         ###   ########.fr       */
+/*   Created: 2026/10/02 14:54:44 by ibettenc          #+#    #+#             */
+/*   Updated: 2026/10/02 15:10:22 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#pragma once
+#include <iostream>
 
-uintptr_t Serializer::serialize(Data *ptr)
+class Base
 {
-    return (reinterpret_cast<uintptr_t>(ptr));
-}
-
-Data *Serializer::deserialize(uintptr_t raw)
-{
-    return (reinterpret_cast<Data*>(raw));
-}
+    public:
+        /* Constructor & Destructor */
+        Base();
+        virtual ~Base();
+        Base(const Base& other);
+        
+        /* Member functions */
+        Base * generate(void);
+        void identify(Base* p);
+        void identify(Base& p);
+        
+        /* Assignement operator */
+        Base operator=(const Base& other);
+};

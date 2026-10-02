@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Serializer.cpp                                     :+:      :+:    :+:   */
+/*   A.hpp                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/09/30 17:10:27 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/02 14:53:16 by ibettenc         ###   ########.fr       */
+/*   Created: 2026/10/02 15:03:09 by ibettenc          #+#    #+#             */
+/*   Updated: 2026/10/02 15:10:20 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Serializer.hpp"
+#pragma once
+#include "Base.hpp"
 
-uintptr_t Serializer::serialize(Data *ptr)
+class A : public Base
 {
-    return (reinterpret_cast<uintptr_t>(ptr));
-}
-
-Data *Serializer::deserialize(uintptr_t raw)
-{
-    return (reinterpret_cast<Data*>(raw));
-}
+    public:
+    
+};

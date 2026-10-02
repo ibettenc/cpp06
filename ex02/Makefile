@@ -6,14 +6,14 @@
 #    By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/09/28 17:15:09 by ibettenc          #+#    #+#              #
-#    Updated: 2026/10/02 14:38:53 by ibettenc         ###   ########.fr        #
+#    Updated: 2026/10/02 15:02:27 by ibettenc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 ###################################################
 ## ARGUMENTS
 
-NAME = serialization
+NAME = identify
 
 CC = c++
 
@@ -23,7 +23,7 @@ CFLAGS = -Wall -Werror -Wextra -std=c++98
 ###################################################
 ## SOURCES
 
-SRC = main.cpp Serializer.cpp Data.cpp
+SRC = main.cpp Base.cpp
 OBJ = $(SRC:.cpp=.o)
 
 ###################################################
