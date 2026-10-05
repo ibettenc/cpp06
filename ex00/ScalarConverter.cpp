@@ -6,15 +6,35 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:36 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/30 17:05:55 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/10/05 17:30:50 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 #include <cstdlib>
-#include <cmath>
+#include <iomanip>
 #include <limits>
-#include <cerrno>
+#include <cctype>
+
+ScalarConverter::ScalarConverter()
+{
+    
+}
+
+ScalarConverter::~ScalarConverter()
+{
+    
+}
+
+ScalarConverter::ScalarConverter(const ScalarConverter&)
+{
+    
+}
+
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter&)
+{
+    return (*this);
+}
 
 static std::string detectType(std::string const& str)
 {
@@ -25,19 +45,28 @@ static std::string detectType(std::string const& str)
         return ("invalid");    
     
     /* CHAR */
+    if (!isalnum(str[0]))
+        return ("char");
     if ((str.length()) == 3 && str[0] == '\'' && str[2] == '\'')
         return ("char");
+    
     /* SPECIAL */
     if (str.find("nan") == 0 || str.find("inf") == 0)
         is_spe = true;
-    if (str.find("+nan") == 0 || str.find("-nan") == 0 ||
-        str.find("-inf") == 0 || str.find("+inf") == 0)
-            is_spe = true;
+    if (str[0] == '+')
+    {
+        if (str.find("+nan") == 0 || str.find("+inf") == 0 ||
+            str.find("+nanf") == 0 || str.find("+inff") == 0)
+            return ("special +");
+    }
+    else if (str[0] == '-')
+    {
+        if (str.find("-nan") == 0 || str.find("-inf") == 0 ||
+            str.find("-nanf") == 0 || str.find("-inff") == 0)
+            return ("special -");      
+    }
     if (str.find("nanf") == 0 || str.find("inff") == 0)
         is_spe = true;
-    if (str.find("+nanf") == 0 || str.find("-nanf") == 0 ||
-        str.find("+inff") == 0 || str.find("-inff") == 0)
-            is_spe = true;
     if (str.find("NaN") == 0 ||  str.find("Inf") == 0)
         is_spe = true;
     if (is_spe == true)
@@ -56,57 +85,85 @@ void ScalarConverter::convert(std::string const& str)
 {
     double value = 0.0;
     char* endptr;
-
+    std::string type;
+    
     /* DETECT AND VALIDATION */
-    std::string type = detectType(str);
+    type = detectType(str);
 
     if (type == "invalid")
         throw InvalidFormatException();
     
     /* PARSING */
     if (type == "char")
-        value = static_cast<double>(str[1]);
+        value = static_cast<double>(str[0]);
     else
     {
-        errno = 0;
-        value = std::strtod(str.c_str(), &endptr);
+        value = std::strtod(str.c_str(), &endptr); // endptr = en of numbers by strtod()
         if (endptr == str.c_str()) // Case 1: no conversion
             throw InvalidFormatException();
-        if (*endptr != '\0' && *endptr != 'f') // Case: 2 characters remaining after 
+        if (endptr[0] && (endptr[0] != 'f' || endptr[1] != '\0')) // Case: 2 characters remaining after 
             throw InvalidFormatException();
     }
         
     /* SPECIAL */
-    if (std::isnan(value))
+    if (value != value)
     {
-        std::cout << "char: impossible\n";
-        std::cout << "int: impossible\n";
-        std::cout << "float: nanf\n";
-        std::cout << "double: nan\n";
+        if (type == "special +")
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: +nanf\n";
+            std::cout << "double: +nan\n";
+        }
+        else if (type == "special -")
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: -nanf\n";
+            std::cout << "double: -nan\n";
+        }
+        else 
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: nanf\n";
+            std::cout << "double: nan\n";
+        }
         return;
     }
 
-    if (std::isinf(value))
+    if (std::numeric_limits<double>::infinity() == value)
     {
-        std::cout << "char: impossible\n";
-        std::cout << "int: impossible\n";
-        std::cout << "float: inff\n";
-        std::cout << "double: inf\n";
+        if (type == "special +")
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: +inff\n";
+            std::cout << "double: +inf\n";
+        }
+        else if (type == "special -")
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: -inff\n";
+            std::cout << "double: -inf\n";
+        }
+        else 
+        {
+            std::cout << "char: impossible\n";
+            std::cout << "int: impossible\n";
+            std::cout << "float: inff\n";
+            std::cout << "double: inf\n";
+        }
         return;
     }
 
     /* CHAR */
-    if (value < std::numeric_limits<char>::min() || value > std::numeric_limits<char>::max())
+    if (value < 0 || value > 127)
         std::cout << "char: impossible\n";
     else
     {
         char c = static_cast<char>(value);
-        
-        // // DEBUG
-        // std::cout << "\nvalue: " << value << "\n";
-        // std::cout << "type: " << type << "\n";
-        // std::cout << "c: " << c << "\n";
-        // std::cout << "str: " << str << "\n\n";
         
         if (c >= 32 && c <= 126)
             std::cout << "char: '" << c << "'\n";
@@ -124,9 +181,24 @@ void ScalarConverter::convert(std::string const& str)
     /* FLOAT */
     if (value > std::numeric_limits<float>::max() || value < -std::numeric_limits<float>::max())
         std::cout << "float: impossible\n";
+    // else 
+        // std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f\n";
     else
-        std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f\n";
+    {
+        int len = str.length();
+        int point = str.find('.');
 
+        int j =  len - point;
+        
+        std::cout << "number of digit after '.': " << j << "\n";
+        
+        // std::cout << "float: " << std::fixed << std::setprecision(str.length()) << static_cast<float>(value) << "f\n";
+    }   
+    // if (str.find('.'))
+    // {
+        
+    // }
+    
     /* DOUBLE */
     std::cout << "double: " << value << "\n";
 

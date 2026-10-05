@@ -6,20 +6,22 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:56 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/09/30 17:15:43 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/10/05 14:34:25 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#define SCALARCONVERTER_HPP
+#ifdef SCALARCONVERTER_HPP
+
 #include <string>
-#include <limits>
 #include <iostream>
-#include <iomanip>
+#include <exception>
 
 class ScalarConverter
 {
     private : /// private constructor bc it cannot be instantiable
-        ScalarConverter() {}
-        ~ScalarConverter() {}
+        ScalarConverter();
+        ~ScalarConverter();
         ScalarConverter(const ScalarConverter&);
         ScalarConverter& operator=(const ScalarConverter&);    
     public :
@@ -38,3 +40,5 @@ class ScalarConverter
 
 
 };
+
+#endif
