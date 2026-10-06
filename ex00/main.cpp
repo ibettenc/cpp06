@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:51 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/05 14:32:54 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/10/06 14:27:40 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,15 @@ int main(int ac, char **av)
     return 0;
 }
 
-/*
-
-tout convertit bien SAUF CHAR donc a gerer 
-
-*/
-
-/*
-4 types d'expressions 
-- static_cast<type>
-- dynamic_cast<ytpe>
-- const_cast<type>
-- reiterpret_cast<type>
-*/
-
-/* /!\ PAS OUBLIER EXCEPTIONS
-- overflow pour un int si 2147483648 (int max = 2147483647) 
-- 
-*/
+// ./scalar 3.14159   -> float: 3.14159f   double: 3.14159
+// ./scalar 4.25f     -> float: 4.25f      double: 4.25
+// ./scalar 42        -> float: 42.0f      double: 42.0
+// ./scalar -5        -> char: impossible
+// ./scalar 127       -> char: Non displayable
+// ./scalar a         -> char: 'a'   int: 97
+// ./scalar .         -> char: '.'  
+// ./scalar -inff   -> float: -inff        double: -inf
+// ./scalar +inff   -> float: +inff        double: +inf
+// ./scalar .25     -> float: 0.25f        double: 0.25
+// ./scalar 42.     -> float: 42.0f        double: 42.0
+// ./scalar nanf    -> float: nanf         double: nan

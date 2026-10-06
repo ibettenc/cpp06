@@ -6,7 +6,7 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:36 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/05 17:30:50 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/10/06 14:34:09 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static std::string detectType(std::string const& str)
         return ("invalid");    
     
     /* CHAR */
-    if (!isalnum(str[0]))
+    if (!str[1] && isprint(str[0]) && !isdigit(str[0]))
         return ("char");
     if ((str.length()) == 3 && str[0] == '\'' && str[2] == '\'')
         return ("char");
@@ -132,7 +132,8 @@ void ScalarConverter::convert(std::string const& str)
         return;
     }
 
-    if (std::numeric_limits<double>::infinity() == value)
+    if (std::numeric_limits<double>::infinity() == value ||
+        std::numeric_limits<double>::infinity() == -value)
     {
         if (type == "special +")
         {
@@ -181,23 +182,36 @@ void ScalarConverter::convert(std::string const& str)
     /* FLOAT */
     if (value > std::numeric_limits<float>::max() || value < -std::numeric_limits<float>::max())
         std::cout << "float: impossible\n";
-    // else 
-        // std::cout << "float: " << std::fixed << std::setprecision(1) << static_cast<float>(value) << "f\n";
     else
     {
-        int len = str.length();
-        int point = str.find('.');
+        int end = str.length();
+        int n_after_digit;
+        int len;
+        int point_pos;
+        
+        if (str[end - 1] == 'f')
+            len = str.length() - 2;
+        else
+            len = str.length() - 1;
+        
+        point_pos = str.find('.');
+        
+        if (point_pos < 1 && str[0] != '.')
+            n_after_digit = 1;
+        else if (point_pos == len)
+            n_after_digit = 1;
+        else
+            n_after_digit = len - point_pos;
+        
+        // DEBUG
+        // std::cout << std::endl;
+        // std::cout << "len: " << len << "\n";
+        // std::cout << "point: " << point_pos << "\n";
+        // std::cout << "number of digit after '.': " << n_after_digit << "\n";
+        // std::cout << std::endl;
 
-        int j =  len - point;
-        
-        std::cout << "number of digit after '.': " << j << "\n";
-        
-        // std::cout << "float: " << std::fixed << std::setprecision(str.length()) << static_cast<float>(value) << "f\n";
+        std::cout << "float: " << std::fixed << std::setprecision(n_after_digit) << static_cast<float>(value) << "f\n";
     }   
-    // if (str.find('.'))
-    // {
-        
-    // }
     
     /* DOUBLE */
     std::cout << "double: " << value << "\n";

@@ -6,12 +6,12 @@
 /*   By: ibettenc <ibettenc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/28 17:15:56 by ibettenc          #+#    #+#             */
-/*   Updated: 2026/10/05 14:34:25 by ibettenc         ###   ########.fr       */
+/*   Updated: 2026/10/06 14:12:19 by ibettenc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef SCALARCONVERTER_HPP
 #define SCALARCONVERTER_HPP
-#ifdef SCALARCONVERTER_HPP
 
 #include <string>
 #include <iostream>
